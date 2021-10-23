@@ -1,82 +1,51 @@
-int Waitmsec = 100;
+char LED[5] = {D3,D4,D5,D6,D7}; //LED位置
+int Waitmsec = 300; //間隔幾毫秒
 void setup() {
-  pinMode(D3, OUTPUT);
-  pinMode(D4, OUTPUT);
-  pinMode(D5, OUTPUT);
-  pinMode(D6, OUTPUT);
-  pinMode(D7, OUTPUT);
+  for (int i = 0; i < 5; i++) {
+    pinMode(LED[i], OUTPUT);
+  }
 }
 
 void One() {
-  digitalWrite(D3, LOW);
-  digitalWrite(D7, HIGH);
+  digitalWrite(LED[4], HIGH);
   delay(Waitmsec);
-  digitalWrite(D7, LOW);
-  digitalWrite(D6, HIGH);
-  delay(Waitmsec);
-  digitalWrite(D6, LOW);
-  digitalWrite(D5, HIGH);
-  delay(Waitmsec);
-  digitalWrite(D5, LOW);
-  digitalWrite(D4, HIGH);
-  delay(Waitmsec);
-  digitalWrite(D4, LOW);
-  digitalWrite(D3, HIGH);
-  delay(Waitmsec);
+  for (int i = 3; i >= 0; i--) {
+    digitalWrite(LED[i+1], LOW);
+    digitalWrite(LED[i], HIGH);
+    delay(Waitmsec);
+  }
 }
 
 void Two() {
-  digitalWrite(D7, LOW);
-  digitalWrite(D3, HIGH);
-  delay(Waitmsec);
-  digitalWrite(D3, LOW);
-  digitalWrite(D4, HIGH);
-  delay(Waitmsec);
-  digitalWrite(D4, LOW);
-  digitalWrite(D5, HIGH);
-  delay(Waitmsec);
-  digitalWrite(D5, LOW);
-  digitalWrite(D6, HIGH);
-  delay(Waitmsec);
-  digitalWrite(D6, LOW);
-  digitalWrite(D7, HIGH);
-  delay(Waitmsec);
-}
-void Three() {
-  for (int i = 0; i < 5; i++) {
-    digitalWrite(D7, HIGH);
-    digitalWrite(D5, HIGH);
-    digitalWrite(D3, HIGH);
-    digitalWrite(D6, LOW);
-    digitalWrite(D4, LOW);
-    delay(Waitmsec);
-    digitalWrite(D7, LOW);
-    digitalWrite(D5, LOW);
-    digitalWrite(D3, LOW);
-    digitalWrite(D6, HIGH);
-    digitalWrite(D4, HIGH);
+  for (int i = 0; i < 4; i++) {
+    digitalWrite(LED[i], LOW);
+    digitalWrite(LED[i+1], HIGH);
     delay(Waitmsec);
   }
-  digitalWrite(D7, LOW);
-  digitalWrite(D6, LOW);
-  digitalWrite(D5, LOW);
-  digitalWrite(D4, LOW);
-  digitalWrite(D3, LOW);
+}
+
+void Three() {
+  for (int i = 0; i < 10; i++) {
+    for (int j = 0; j < 5; j++) {
+      if ((((j % 2)+(i%2)) % 2)==0) //位置和第幾次時
+        digitalWrite(LED[j], HIGH);
+      } else {
+        digitalWrite(LED[j], LOW);
+      }
+    }
+    delay(Waitmsec);
+  }
 }
 
 void Four() {
-  for (int i = 0; i < 5; i++) {
-    digitalWrite(D7, HIGH);
-    digitalWrite(D5, HIGH);
-    digitalWrite(D3, HIGH);
-    digitalWrite(D6, HIGH);
-    digitalWrite(D4, HIGH);
-    delay(Waitmsec);
-    digitalWrite(D7, LOW);
-    digitalWrite(D5, LOW);
-    digitalWrite(D3, LOW);
-    digitalWrite(D6, LOW);
-    digitalWrite(D4, LOW);
+  for (int i = 0; i < 10; i++) {
+    for (int j = 0; j < 5; j++) {
+      if ((i % 2) == 0) {
+        digitalWrite(LED[j], HIGH);
+      } else {
+        digitalWrite(LED[j], LOW);
+      }
+    } 
     delay(Waitmsec);
   }
 }
@@ -84,6 +53,6 @@ void Four() {
 void loop() {
   One();
   Two();
-  Three();  
+  Three();
   Four();
 }
