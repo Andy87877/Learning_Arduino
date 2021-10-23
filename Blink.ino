@@ -1,5 +1,5 @@
 char LED[5] = {D3,D4,D5,D6,D7}; //LED位置
-int Waitmsec = 300; //間隔幾毫秒
+int Waitmsec = 100; //間隔幾毫秒
 void setup() {
   for (int i = 0; i < 5; i++) {
     pinMode(LED[i], OUTPUT);
@@ -27,7 +27,7 @@ void Two() {
 void Three() {
   for (int i = 0; i < 10; i++) {
     for (int j = 0; j < 5; j++) {
-      if ((((j % 2)+(i%2)) % 2)==0) //位置和第幾次時
+      if ((((j % 2)+(i%2)) % 2)==0){ //位置和第幾次時
         digitalWrite(LED[j], HIGH);
       } else {
         digitalWrite(LED[j], LOW);
